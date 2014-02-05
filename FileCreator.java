@@ -6,6 +6,7 @@ import java.util.Arrays;
 
 /**
  * Small helper class to create a named file with the size passed.
+ * Usage : FileCreator file_size in bytes name of file
  */
 public class FileCreator {
 	

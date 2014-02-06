@@ -9,11 +9,13 @@ import java.util.Arrays;
  * Usage : FileCreator file_size in bytes name of file
  */
 public class FileCreator {
+
+  private static final int CHUNK_SIZE = 1024;
     
     public static void main(String[] args) {
         
         if (args == null || args.length != 2) {
-            System.out.println("Usage: FileCreator <file_size> <file_name>");
+            System.out.println("Usage: FileCreator <file_size_in_KB> <file_name>");
             System.exit(1);
             return;
         }
@@ -30,11 +32,16 @@ public class FileCreator {
         if (file.exists()) {
             file.delete();
         }
-        final byte[] bytes = new byte[fileSize];
+
+        final byte[] bytes = new byte[CHUNK_SIZE];
         Arrays.fill(bytes, (byte) 1);
         try {
             BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(file));
-            bos.write(bytes);
+
+            for (int i = 0; i < fileSize; i++) {
+              bos.write(bytes);
+            }
+
             bos.flush();
             bos.close();
         } catch (IOException e) {}
